@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :text_posts, dependent: :destroy # Tengo text_posts post, si elimino el user, elimino los text_posts asociados
   has_many :image_posts, dependent: :destroy # Tengo muchos image_posts, si elimino el user, elimino los image_posts asociados
 
+  # Relacion con los comentarios
+  has_many :comments
+
   # Metodo para saber si un usuario sigue a otro
   def following?(leader)
     leaders.include? leader
