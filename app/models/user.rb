@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
+  # Relaciones para suscripciones (Sacar que usuarios sigue un usuario)
   has_many :subscriptions, foreign_key: :follower_id, dependent: :destroy
   has_many :leaders, through: :subscriptions
+
+  # Relaciones reversas para suscripciones (Sacar seguidores de un usuario)
+  has_many :reverse_subscriptions, class_name: 'Subscription', foreign_key: :leader_id, dependent: :destroy
+  has_many :followers, through: :reverse_subscriptions
 
   # Metodo para saber si un usuario sigue a otro
   def following?(leader)
