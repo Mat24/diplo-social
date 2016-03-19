@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+
+  # Hacemos uso de Bcrypt para almacenar nuestro password de forma segura
+  # Al hacer uso de esto, la gema espera que exista un campo llamado 'password_digest'
+  has_secure_password
+
   # Relaciones para suscripciones (Sacar que usuarios sigue un usuario)
   has_many :subscriptions, foreign_key: :follower_id, dependent: :destroy
   has_many :leaders, through: :subscriptions
@@ -14,6 +19,13 @@ class User < ActiveRecord::Base
 
   # Relacion con los comentarios
   has_many :comments
+
+  # Area de validaciones
+
+  # Verifico que exista un correo electronico y ademas, que este sea unico en mi tabla Users
+  validates :email, presence: true, uniqueness: true
+
+  # Area de metodos
 
   # Metodo para saber si un usuario sigue a otro
   def following?(leader)

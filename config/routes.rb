@@ -4,6 +4,18 @@ Rails.application.routes.draw do
   resources :text_posts
   resources :posts
   resources :users
+  resources :sessions
+
+  # Ruta personalizada para registrar un usuario
+  get 'signup', to: 'users#new', as: 'signup'
+  # Ruta personalizada para crear una sesion (login)
+  get 'login', to: 'sessions#new', as: 'login'
+  # Ruta personalizada para eliminar una sesion (logout)
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+
+  # Ruta raiz del proyecto
+  root 'posts#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
